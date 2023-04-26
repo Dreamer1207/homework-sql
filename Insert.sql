@@ -107,10 +107,37 @@ INSERT INTO album(id, name, year_release)
 VALUES(8, 'Славянские танцы', '2007');
 
 
+INSERT INTO performeralbum(id, performer_id, album_id)
+VALUES(1, '1', '1');
 
-SELECT * FROM album;
-SELECT * FROM Performer;
+INSERT INTO performeralbum(id, performer_id, album_id)
+VALUES(2, '2', '2');
+--
+INSERT INTO performeralbum(id, performer_id, album_id)
+VALUES(3, '3', '3');
+
+INSERT INTO performeralbum(id, performer_id, album_id)
+VALUES(4, '4', '4');
+--
+INSERT INTO performeralbum(id, performer_id, album_id)
+VALUES(5, '5', '5');
+
+INSERT INTO performeralbum(id, performer_id, album_id)
+VALUES(6, '6', '6');
+
+INSERT INTO performeralbum(id, performer_id, album_id)
+VALUES(7, '7', '7');
+
+INSERT INTO performeralbum(id, performer_id, album_id)
+VALUES(8, '8', '8');
+
+
+
+
+SELECT * FROM performeralbum;
+SELECT * FROM PerformerAlbum;
 SELECT * FROM GenrePerformer;
+
 
 --DELETE FROM genreperformer;
 
