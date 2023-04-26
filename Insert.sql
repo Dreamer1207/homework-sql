@@ -15,7 +15,7 @@ VALUES(5, 'Шансон');
 
 
 INSERT INTO performer(id, name)
-VALUES(1, 'Полина Гагарина');
+VALUES(1, 'МакSим');
 
 INSERT INTO performer(id, name)
 VALUES(2, 'Альянс');
@@ -78,30 +78,33 @@ VALUES(12, '5', '5');
 INSERT INTO genreperformer(id, genre_id, performer_id)
 VALUES(13, '5', '7');
 
+INSERT INTO genreperformer(id, genre_id, performer_id)
+VALUES(14, '1', '2');
+
 
 INSERT INTO album(id, name, year_release)
-VALUES(1, 'Oбезоружена', '2019');
+VALUES(1, 'Мой рай', '2007');
 
 INSERT INTO album(id, name, year_release)
-VALUES(2, 'Альянс');
+VALUES(2, 'На заре', '2019');
 
 INSERT INTO album(id, name, year_release)
-VALUES(3, 'Ария');
+VALUES(3, 'Кровь за кровь', '1991');
 
 INSERT INTO album(id, name, year_release)
-VALUES(4, 'Дельфин');
+VALUES(4, 'Звезда', '2004');
 
 INSERT INTO album(id, name, year_release)
-VALUES(5, 'Елена Ваенга');
+VALUES(5, 'Клавиши', '2009');
 
 INSERT INTO album(id, name, year_release)
-VALUES(6, 'Баста');
+VALUES(6, 'Баста 3', '2010');
 
 INSERT INTO album(id, name, year_release)
-VALUES(7, 'Григорий Лепс');
+VALUES(7, 'Наутро', '2018');
 
 INSERT INTO album(id, name, year_release)
-VALUES(8, 'Моральный кодекс');
+VALUES(8, 'Славянские танцы', '2007');
 
 
 
@@ -112,5 +115,5 @@ SELECT * FROM GenrePerformer;
 --DELETE FROM genreperformer;
 
 --UPDATE performer  
---SET name = 'Полина Гагарина'
+--SET name = 'МакSим'
 --WHERE id = 1;
