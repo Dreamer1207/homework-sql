@@ -120,50 +120,50 @@ INSERT INTO performeralbum(id, performer_id, album_id)
 VALUES(8, 8, 8);
 
 
-INSERT INTO track(id, name, duration, album_id)
-VALUES(1, 'Спектакль окончен', '05:30', 1);
+INSERT INTO track(id, album_id, name, duration)
+VALUES(1, 1, 'Спектакль окончен', '05:30');
 
-INSERT INTO track(id, name, duration, album_id)
-VALUES(2, 'Кукушка', '04:12', 1);
+INSERT INTO track(id, album_id, name, duration)
+VALUES(2, 1, 'Кукушка', '04:12');
 
-INSERT INTO track(id, name, duration, album_id)
-VALUES(3, 'На Заре', '05:45', 2);
+INSERT INTO track(id, album_id, name, duration)
+VALUES(3, 2, 'На Заре', '05:45');
 
-INSERT INTO track(id, name, duration, album_id)
-VALUES(4, 'Прощай норфолк!', '05:20', 3);
+INSERT INTO track(id, album_id, name, duration)
+VALUES(4, 3, 'Прощай норфолк!', '05:20');
 
-INSERT INTO track(id, name, duration, album_id)
-VALUES(5, 'Антихрист', '05:04', 3);
+INSERT INTO track(id, album_id, name, duration)
+VALUES(5, 3, 'Антихрист', '05:04');
 
-INSERT INTO track(id, name, duration, album_id)
-VALUES(6, 'Серебро', '04:01', 4);
+INSERT INTO track(id, album_id, name, duration)
+VALUES(6, 4, 'Серебро', '04:01');
 
-INSERT INTO track(id, name, duration, album_id)
-VALUES(7, 'Весна', '04:51', 4);
+INSERT INTO track(id, album_id, name, duration)
+VALUES(7, 4, 'Весна', '04:51');
 
-INSERT INTO track(id, name, duration, album_id)
-VALUES(8, 'Романс', '03:48', 4);
+INSERT INTO track(id, album_id, name, duration)
+VALUES(8, 4, 'Романс', '03:48');
 
-INSERT INTO track(id, name, duration, album_id)
-VALUES(9, 'Не Любил', '04:09', 5);
+INSERT INTO track(id, album_id, name, duration)
+VALUES(9, 5, 'Не Любил', '04:09');
 
-INSERT INTO track(id, name, duration, album_id)
-VALUES(10, 'Клавиши', '03:45', 5);
+INSERT INTO track(id, album_id, name, duration)
+VALUES(10, 5, 'Клавиши', '03:45');
 
-INSERT INTO track(id, name, duration, album_id)
-VALUES(11, 'Магадан', '4:26', 6);
+INSERT INTO track(id, album_id, name, duration)
+VALUES(11, 6, 'Магадан', '4:26');
 
-INSERT INTO track(id, name, duration, album_id)
-VALUES(12, 'Приходите в мой дом', '3:41', 6);
+INSERT INTO track(id, album_id, name, duration)
+VALUES(12, 6, 'Приходите в мой дом', '3:41');
 
-INSERT INTO track(id, name, duration, album_id)
-VALUES(13, 'На ржавом ветру', '3:01', 7);
+INSERT INTO track(id, album_id, name, duration)
+VALUES(13, 7, 'На ржавом ветру', '3:01');
 
-INSERT INTO track(id, name, duration, album_id)
-VALUES(14, 'В твоих глазах', '3:54', 8);
+INSERT INTO track(id, album_id, name, duration)
+VALUES(14, 8, 'В твоих глазах', '3:54');
 
-INSERT INTO track(id, name, duration, album_id)
-VALUES(15, 'Первый снег', '4:00', 8);
+INSERT INTO track(id, album_id, name, duration)
+VALUES(15, 8, 'Первый снег', '4:00');
 
 
 
