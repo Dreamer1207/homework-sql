@@ -168,28 +168,28 @@ VALUES(15, 8, 'Выхода нет', '3:47');
 
 -- Сборник
 INSERT INTO collection(id, name, year_release)
-VALUES(1, 'Top 100 Soundtracks (2023)', '2023'); -- Кукушка, На заре
+VALUES(1, 'Top 100 Soundtracks (2023)', '2023');
 
 INSERT INTO collection(id, name, year_release)
-VALUES(2, 'Как Это Было... Хиты Времен СССР (2023)', '2023'); -- На заре
+VALUES(2, 'Как Это Было... Хиты Времен СССР (2023)', '2023');
 
 INSERT INTO collection(id, name, year_release)
-VALUES(3, 'Мой Русский Рок (2023)', '2023'); -- Потерянный рай
+VALUES(3, 'Мой Русский Рок (2023)', '2023');
 
 INSERT INTO collection(id, name, year_release)
-VALUES(4, 'Дельфин - Лучшие Песни', '2012'); -- Весна
+VALUES(4, 'Дельфин - Лучшие Песни', '2012');
 
 INSERT INTO collection(id, name, year_release)
-VALUES(5, 'Две звезды, ч. 6 (Сборник песен любимых исполнителей)', '2012'); -- Клавиши
+VALUES(5, 'Две звезды (Сборник песен любимых исполнителей)', '2012');
 
 INSERT INTO collection(id, name, year_release)
-VALUES(6, '50 лучших песен (Большая коллекция шансона)', '2013'); --Магадан, Приходите в мой дом
+VALUES(6, '50 лучших песен (Большая коллекция шансона)', '2013');
 
 INSERT INTO collection(id, name, year_release)
-VALUES(7, 'Noize MC - XV (2019). Сборник [MP3]', '2019'); -- В темноте
+VALUES(7, 'Noize MC - XV (2019). Сборник [MP3]', '2019');
 
 INSERT INTO collection(id, name, year_release)
-VALUES(8, 'Сборник Русский рок. 100 лучших хитов (2019 / MP3)', '2019'); -- Выхода нет
+VALUES(8, 'Сборник Русский рок. 100 лучших хитов (2019 / MP3)', '2019');
 
 -- Сборник-трек
 INSERT INTO collectiontrack(id, collection_id, track_id)
@@ -221,16 +221,3 @@ VALUES(9, 7, 13);
 
 INSERT INTO collectiontrack(id, collection_id, track_id)
 VALUES(10, 8, 15);
-
-
-SELECT * FROM track;
-SELECT * FROM PerformerAlbum;
-SELECT * FROM GenrePerformer;
-
-
-DELETE FROM track
-WHERE id = ;
-
-UPDATE performer  
-SET name = 'Борис Гребенщиков'
-WHERE id = 7;
