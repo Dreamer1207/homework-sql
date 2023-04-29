@@ -1,3 +1,4 @@
+-- Жанр
 INSERT INTO genre(id, name)
 VALUES(1, 'Поп');
 
@@ -13,7 +14,7 @@ VALUES(4, 'Хип-хоп');
 INSERT INTO genre(id, name)
 VALUES(5, 'Шансон');
 
-
+-- Исполнитель
 INSERT INTO performer(id, name)
 VALUES(1, 'Полина Гагарина');
 
@@ -38,7 +39,7 @@ VALUES(7, 'Noize MC');
 INSERT INTO performer(id, name)
 VALUES(8, 'Сплин');
 
-
+-- Жанр-исполнитель
 INSERT INTO genreperformer(id, genre_id, performer_id)
 VALUES(1, 1, 1);
 
@@ -69,9 +70,9 @@ VALUES(9, 5, 5);
 INSERT INTO genreperformer(id, genre_id, performer_id)
 VALUES(10, 5, 6);
 
-
+-- Альбом
 INSERT INTO album(id, name, year_release)
-VALUES(1, 'Обезоружена', '2017');
+VALUES(1, 'Шоу "Обезоружена"', '2019');
 
 INSERT INTO album(id, name, year_release)
 VALUES(2, 'На заре', '1987');
@@ -94,19 +95,19 @@ VALUES(7, 'No Comments', '2018');
 INSERT INTO album(id, name, year_release)
 VALUES(8, 'Гранатовый альбом', '1998');
 
-
+-- Исполнитель-альбом
 INSERT INTO performeralbum(id, performer_id, album_id)
 VALUES(1, 1, 1);
 
 INSERT INTO performeralbum(id, performer_id, album_id)
 VALUES(2, 2, 2);
---
+
 INSERT INTO performeralbum(id, performer_id, album_id)
 VALUES(3, 3, 3);
 
 INSERT INTO performeralbum(id, performer_id, album_id)
 VALUES(4, 4, 4);
---
+
 INSERT INTO performeralbum(id, performer_id, album_id)
 VALUES(5, 5, 5);
 
@@ -119,7 +120,7 @@ VALUES(7, 7, 7);
 INSERT INTO performeralbum(id, performer_id, album_id)
 VALUES(8, 8, 8);
 
-
+-- Трек
 INSERT INTO track(id, album_id, name, duration)
 VALUES(1, 1, 'Спектакль окончен', '05:30');
 
@@ -165,7 +166,7 @@ VALUES(14, 8, 'Орбит без сахара', '2:17');
 INSERT INTO track(id, album_id, name, duration)
 VALUES(15, 8, 'Выхода нет', '3:47');
 
-
+-- Сборник
 INSERT INTO collection(id, name, year_release)
 VALUES(1, 'Top 100 Soundtracks (2023)', '2023'); -- Кукушка, На заре
 
@@ -182,7 +183,7 @@ INSERT INTO collection(id, name, year_release)
 VALUES(5, 'Две звезды, ч. 6 (Сборник песен любимых исполнителей)', '2012'); -- Клавиши
 
 INSERT INTO collection(id, name, year_release)
-VALUES(6, 'Various. XXXL Шансон. Максимальный размер удовольствия 1', '2001'); --Приходите в мой дом
+VALUES(6, '50 лучших песен (Большая коллекция шансона)', '2013'); --Магадан, Приходите в мой дом
 
 INSERT INTO collection(id, name, year_release)
 VALUES(7, 'Noize MC - XV (2019). Сборник [MP3]', '2019'); -- В темноте
@@ -190,33 +191,36 @@ VALUES(7, 'Noize MC - XV (2019). Сборник [MP3]', '2019'); -- В темн�
 INSERT INTO collection(id, name, year_release)
 VALUES(8, 'Сборник Русский рок. 100 лучших хитов (2019 / MP3)', '2019'); -- Выхода нет
 
-
-INSERT INTO collectiontrack(id, collection-id, track_id)
+-- Сборник-трек
+INSERT INTO collectiontrack(id, collection_id, track_id)
 VALUES(1, 1, 2);
 
-INSERT INTO collectiontrack(id, collection-id, track_id)
+INSERT INTO collectiontrack(id, collection_id, track_id)
 VALUES(2, 1, 3);
 
-INSERT INTO collectiontrack(id, collection-id, track_id)
+INSERT INTO collectiontrack(id, collection_id, track_id)
 VALUES(3, 2, 3);
 
-INSERT INTO collectiontrack(id, collection-id, track_id)
+INSERT INTO collectiontrack(id, collection_id, track_id)
 VALUES(4, 3, 4);
 
-INSERT INTO collectiontrack(id, collection-id, track_id)
+INSERT INTO collectiontrack(id, collection_id, track_id)
 VALUES(5, 4, 7);
 
-INSERT INTO collectiontrack(id, collection-id, track_id)
+INSERT INTO collectiontrack(id, collection_id, track_id)
 VALUES(6, 5, 10);
 
-INSERT INTO collectiontrack(id, collection-id, track_id)
-VALUES(7, 6, 12);
+INSERT INTO collectiontrack(id, collection_id, track_id)
+VALUES(7, 6, 11);
 
-INSERT INTO collectiontrack(id, collection-id, track_id)
-VALUES(8, 7, 13);
+INSERT INTO collectiontrack(id, collection_id, track_id)
+VALUES(8, 6, 12);
 
-INSERT INTO collectiontrack(id, collection-id, track_id)
-VALUES(9, 8, 15);
+INSERT INTO collectiontrack(id, collection_id, track_id)
+VALUES(9, 7, 13);
+
+INSERT INTO collectiontrack(id, collection_id, track_id)
+VALUES(10, 8, 15);
 
 
 SELECT * FROM track;
