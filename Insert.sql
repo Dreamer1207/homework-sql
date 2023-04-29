@@ -72,28 +72,28 @@ VALUES(10, 5, 6);
 
 -- Альбом
 INSERT INTO album(id, name, year_release)
-VALUES(1, 'Шоу "Обезоружена"', '2019');
+VALUES(1, 'Шоу "Обезоружена"', 2019);
 
 INSERT INTO album(id, name, year_release)
-VALUES(2, 'На заре', '1987');
+VALUES(2, 'На заре', 1987);
 
 INSERT INTO album(id, name, year_release)
-VALUES(3, 'Штиль', '2002');
+VALUES(3, 'Штиль', 2002);
 
 INSERT INTO album(id, name, year_release)
-VALUES(4, 'Звезда', '2004');
+VALUES(4, 'Звезда', 2004);
 
 INSERT INTO album(id, name, year_release)
-VALUES(5, 'Клавиши', '2009');
+VALUES(5, 'Клавиши', 2009);
 
 INSERT INTO album(id, name, year_release)
-VALUES(6, 'Посвящение', '2002');
+VALUES(6, 'Посвящение', 2002);
 
 INSERT INTO album(id, name, year_release)
-VALUES(7, 'No Comments', '2018');
+VALUES(7, 'No Comments', 2018);
 
 INSERT INTO album(id, name, year_release)
-VALUES(8, 'Гранатовый альбом', '1998');
+VALUES(8, 'Гранатовый альбом', 1998);
 
 -- Исполнитель-альбом
 INSERT INTO performeralbum(id, performer_id, album_id)
@@ -122,74 +122,74 @@ VALUES(8, 8, 8);
 
 -- Трек
 INSERT INTO track(id, album_id, name, duration)
-VALUES(1, 1, 'Спектакль окончен', '05:30');
+VALUES(1, 1, 'Спектакль окончен', 5.3);
 
 INSERT INTO track(id, album_id, name, duration)
-VALUES(2, 1, 'Кукушка', '04:12');
+VALUES(2, 1, 'Кукушка', 4.12);
 
 INSERT INTO track(id, album_id, name, duration)
-VALUES(3, 2, 'На заре', '05:37');
+VALUES(3, 2, 'На заре', 5.37);
 
 INSERT INTO track(id, album_id, name, duration)
-VALUES(4, 3, 'Потерянный рай', '05:37');
+VALUES(4, 3, 'Потерянный рай', 5.37);
 
 INSERT INTO track(id, album_id, name, duration)
-VALUES(5, 3, 'Дай руку мне', '05:05');
+VALUES(5, 3, 'Дай руку мне', 5.05);
 
 INSERT INTO track(id, album_id, name, duration)
-VALUES(6, 4, 'Серебро', '04:01');
+VALUES(6, 4, 'Серебро', 4.01);
 
 INSERT INTO track(id, album_id, name, duration)
-VALUES(7, 4, 'Весна', '04:51');
+VALUES(7, 4, 'Весна', 4.51);
 
 INSERT INTO track(id, album_id, name, duration)
-VALUES(8, 4, 'Романс', '03:48');
+VALUES(8, 4, 'Романс', 3.48);
 
 INSERT INTO track(id, album_id, name, duration)
-VALUES(9, 5, 'Не Любил', '04:09');
+VALUES(9, 5, 'Не Любил', 4.09);
 
 INSERT INTO track(id, album_id, name, duration)
-VALUES(10, 5, 'Клавиши', '03:45');
+VALUES(10, 5, 'Клавиши', 3.45);
 
 INSERT INTO track(id, album_id, name, duration)
-VALUES(11, 6, 'Магадан', '4:26');
+VALUES(11, 6, 'Магадан', 4.26);
 
 INSERT INTO track(id, album_id, name, duration)
-VALUES(12, 6, 'Приходите в мой дом', '3:41');
+VALUES(12, 6, 'Приходите в мой дом', 3.41);
 
 INSERT INTO track(id, album_id, name, duration)
-VALUES(13, 7, 'В темноте', '3:27');
+VALUES(13, 7, 'В темноте', 3.27);
 
 INSERT INTO track(id, album_id, name, duration)
-VALUES(14, 8, 'Орбит без сахара', '2:17');
+VALUES(14, 8, 'Орбит без сахара', 2.17);
 
 INSERT INTO track(id, album_id, name, duration)
-VALUES(15, 8, 'Выхода нет', '3:47');
+VALUES(15, 8, 'Выхода нет', 3.47);
 
 -- Сборник
 INSERT INTO collection(id, name, year_release)
-VALUES(1, 'Top 100 Soundtracks (2023)', '2023');
+VALUES(1, 'Top 100 Soundtracks (2023)', 2023);
 
 INSERT INTO collection(id, name, year_release)
-VALUES(2, 'Как Это Было... Хиты Времен СССР (2023)', '2023');
+VALUES(2, 'Как Это Было... Хиты Времен СССР (2023)', 2023);
 
 INSERT INTO collection(id, name, year_release)
-VALUES(3, 'Мой Русский Рок (2023)', '2023');
+VALUES(3, 'Мой Русский Рок (2023)', 2023);
 
 INSERT INTO collection(id, name, year_release)
-VALUES(4, 'Дельфин - Лучшие Песни', '2012');
+VALUES(4, 'Дельфин - Лучшие Песни', 2012);
 
 INSERT INTO collection(id, name, year_release)
-VALUES(5, 'Две звезды (Сборник песен любимых исполнителей)', '2012');
+VALUES(5, 'Две звезды (Сборник песен любимых исполнителей)', 2012);
 
 INSERT INTO collection(id, name, year_release)
-VALUES(6, '50 лучших песен (Большая коллекция шансона)', '2013');
+VALUES(6, '50 лучших песен (Большая коллекция шансона)', 2013);
 
 INSERT INTO collection(id, name, year_release)
-VALUES(7, 'Noize MC - XV (2019). Сборник [MP3]', '2019');
+VALUES(7, 'Noize MC - XV (2019). Сборник [MP3]', 2019);
 
 INSERT INTO collection(id, name, year_release)
-VALUES(8, 'Сборник Русский рок. 100 лучших хитов (2019 / MP3)', '2019');
+VALUES(8, 'Сборник Русский рок. 100 лучших хитов (2019 / MP3)', 2019);
 
 -- Сборник-трек
 INSERT INTO collectiontrack(id, collection_id, track_id)
