@@ -71,29 +71,29 @@ INSERT INTO genreperformer(id, genre_id, performer_id)
 VALUES(10, 5, 6);
 
 -- Альбом
-INSERT INTO album(id, name, year_release)
-VALUES(1, 'Шоу "Обезоружена"', 2019);
+INSERT INTO album(id, name, year_release, number_tracks)
+VALUES(1, 'Шоу "Обезоружена"', 2019, 8);
 
-INSERT INTO album(id, name, year_release)
-VALUES(2, 'На заре', 1987);
+INSERT INTO album(id, name, year_release, number_tracks)
+VALUES(2, 'На заре', 1987, 9);
 
-INSERT INTO album(id, name, year_release)
-VALUES(3, 'Штиль', 2002);
+INSERT INTO album(id, name, year_release, number_tracks)
+VALUES(3, 'Штиль', 2002, 11);
 
-INSERT INTO album(id, name, year_release)
-VALUES(4, 'Звезда', 2004);
+INSERT INTO album(id, name, year_release, number_tracks)
+VALUES(4, 'Звезда', 2004, 12);
 
-INSERT INTO album(id, name, year_release)
-VALUES(5, 'Клавиши', 2009);
+INSERT INTO album(id, name, year_release, number_tracks)
+VALUES(5, 'Клавиши', 2009, 12);
 
-INSERT INTO album(id, name, year_release)
-VALUES(6, 'Посвящение', 2002);
+INSERT INTO album(id, name, year_release, number_tracks)
+VALUES(6, 'Посвящение', 2002, 12);
 
-INSERT INTO album(id, name, year_release)
-VALUES(7, 'No Comments', 2018);
+INSERT INTO album(id, name, year_release, number_tracks)
+VALUES(7, 'No Comments', 2018, 4);
 
-INSERT INTO album(id, name, year_release)
-VALUES(8, 'Гранатовый альбом', 1998);
+INSERT INTO album(id, name, year_release, number_tracks)
+VALUES(8, 'Гранатовый альбом', 1998, 12);
 
 -- Исполнитель-альбом
 INSERT INTO performeralbum(id, performer_id, album_id)
