@@ -5,7 +5,7 @@ SELECT name, duration FROM track
 ORDER BY duration DESC; 
 
 SELECT name FROM track
-WHERE duration >= 3.5;
+WHERE duration >= '00:03:30';
 
 SELECT name FROM collection
 WHERE year_release BETWEEN 2018 AND 2020;
