@@ -37,7 +37,6 @@ FROM album a
 JOIN performeralbum pa ON a.id = pa.album_id  
 JOIN performer p ON pa.performer_id = p.id
 JOIN genreperformer gp ON p.id = gp.performer_id
-JOIN genre g ON gp.genre_id = g.id
 GROUP BY a.name, gp.performer_id
 HAVING COUNT(gp.genre_id) > 1;
 
