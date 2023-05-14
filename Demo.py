@@ -7,7 +7,6 @@ def delete_db(conn):
             DROP TABLE client
             """)
     
-    
 def create_db(conn):
     with conn.cursor() as cur:
         cur.execute("""
@@ -25,7 +24,6 @@ def create_db(conn):
         phone TEXT UNIQUE);
         """)
         
-        
 def add_client(conn, first_name, last_name, email, phone=None):
     with conn.cursor() as cur:
         cur.execute("""
@@ -40,7 +38,6 @@ def add_client(conn, first_name, last_name, email, phone=None):
             VALUES(%s, %s);
              """, (link_client, phone,))
                   
-                  
 def add_phone(conn, client_id, phone):
     with conn.cursor() as cur:
         cur.execute("""
@@ -52,7 +49,7 @@ def add_phone(conn, client_id, phone):
         INSERT INTO phones(link_client, phone)
         VALUES(%s, %s);
          """, (client_id, phone,))
-           
+
         
 def change_client(conn, client_id, first_name=None, last_name=None, email=None):
     with conn.cursor() as cur:
@@ -97,55 +94,8 @@ def change_client(conn, client_id, first_name=None, last_name=None, email=None):
             UPDATE client
             SET first_name=%s, last_name = %s, email = %s
             WHERE client_id = %s;
-            """, (first_name, last_name, email, client_id,))
-            
-
-def delete_phone(conn, client_id, phone):
-    with conn.cursor() as cur:
-        cur.execute("""
-            SELECT client_id FROM client
-            WHERE client_id = %s;
-            """, (client_id,))
-        cur.execute("""
-            DELETE FROM phones
-            WHERE phone = %s;
-            """, (phone,))
-        print("removal!")
-        
-
-def delete_client(conn, client_id):
-    with conn.cursor() as cur:
-        cur.execute("""
-            SELECT client_id FROM client
-            WHERE client_id = %s;
-            """, (client_id,))
-        cur.execute("""
-            DELETE FROM phones
-            WHERE link_client = %s;
-            """, (client_id,))
-        cur.execute("""
-            DELETE FROM client
-            WHERE client_id = %s;
-            """, (client_id,))
-        print("removal!")
-        
-def find_client(conn, first_name=None, last_name=None, email=None, phone=None):
-    with conn.cursor() as cur:
-        cur.execute("""
-            SELECT client_id, last_name, email, phone FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE first_name = %s;
-            """, (first_name,))
-        print(first_name, cur.fetchone())
-        cur.execute("""
-            SELECT client_id, first_name, email, phone FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE first_name = %s;
-            """, (last_name,))
-        print(last_name, cur.fetchone())
-    
-    
-    
+            """, (first_name, last_name, email, client_id,))            
+#            
          
         
         
@@ -154,14 +104,12 @@ with psycopg2.connect(database="clients_db", user="postgres", password="1112") a
     create_db(conn)
     add_client(conn, "Roma", "Zaverskiy", "Zaverskiy333@gmail.com", "8-995-595-87-44")
     add_client(conn, "Вася", "Пупкин", "Pupkin@gmail.com")
-    add_client(conn, "Иван", "Иванов", "Ivanov@gmail.com")
     add_phone(conn, 1, "8-950-019-55-87")
     add_phone(conn, 2, "8-099-444-87-23")
     add_phone(conn, 1, "8-045-665-32-55")
     change_client(conn, 2, "ccccc", "cccccc", "ccccdd")
-    delete_phone(conn, 1, "8-995-595-87-44") 
-    delete_client(conn, 6) 
-    find_client(conn, "Roma")
+   
+    
     
     
 
