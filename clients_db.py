@@ -145,22 +145,64 @@ def delete_client(conn, client_id):
         
 def find_client(conn, first_name=None, last_name=None, email=None, phone=None):
     with conn.cursor() as cur:
-        cur.execute("""
-            SELECT client_id, last_name, email, phone FROM client c
+        if last_name is None and email is None and phone is None:
+            cur.execute("""
+            SELECT last_name, email FROM client
+            WHERE first_name = %s;
+            """, (first_name,))
+            print(cur.fetchall())
+            cur.execute("""
+            SELECT phone FROM client c
             JOIN phones p ON c.client_id = p.link_client
             WHERE first_name = %s;
             """, (first_name,))
-        print(first_name, cur.fetchone())
-        cur.execute("""
-            SELECT client_id, first_name, email, phone FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE first_name = %s;
+            print(cur.fetchall())
+        elif first_name is None and email is None and phone is None:
+            cur.execute("""
+            SELECT first_name, email FROM client
+            WHERE last_name = %s;
             """, (last_name,))
-        print(last_name, cur.fetchone())
-    
-    
-    
-         
+            print(cur.fetchall())
+            cur.execute("""
+            SELECT phone FROM client c
+            JOIN phones p ON c.client_id = p.link_client
+            WHERE last_name = %s;
+            """, (last_name,))
+            print(cur.fetchall())
+        elif first_name is None and last_name is None and phone is None:
+            cur.execute("""
+            SELECT first_name, last_name FROM client
+            WHERE email = %s;
+            """, (email,))
+            print(cur.fetchall())
+            cur.execute("""
+            SELECT phone FROM client c
+            JOIN phones p ON c.client_id = p.link_client
+            WHERE email = %s;
+            """, (email,))
+            print(cur.fetchall())
+        elif first_name is None and last_name is None and email is None:
+            cur.execute("""
+            SELECT first_name, last_name, email FROM phones p
+            JOIN client c ON p.link_client = c.client_id
+            WHERE phone = %s;
+            """, (phone,))
+            print(cur.fetchall())
+        elif email is None and phone is None:
+            cur.execute("""
+            SELECT email FROM client
+            WHERE first_name = %s AND last_name = %s;
+            """, (first_name, last_name,))
+            print(cur.fetchall())
+            cur.execute("""
+            SELECT phone FROM client c
+            JOIN phones p ON c.client_id = p.link_client
+            WHERE first_name = %s AND last_name = %s;
+            """, (first_name, last_name,))
+            print(*(cur.fetchall()))
+#             
+#     
+#          
         
         
 with psycopg2.connect(database="clients_db", user="postgres", password="1112") as conn:
@@ -172,10 +214,13 @@ with psycopg2.connect(database="clients_db", user="postgres", password="1112") a
     add_phone(conn, 1, "8-950-019-55-87")
     add_phone(conn, 2, "8-099-444-87-23")
     add_phone(conn, 2, "8-045-665-32-55")
-    change_client(conn, 2, "ccccc", "cccccc", "ccccdd")
-    delete_phone(conn, 1, "8-995-595-87-44") 
+    change_client(conn, 2, "Имя", "Фамилия", "Почта")
+    delete_phone(conn, 1, "8-995-595-87-44")
+    delete_phone(conn, 1, "8-950-019-55-87") 
     delete_client(conn, 3) 
-    find_client(conn, "Roma")
+#     find_client(conn, None, None, "bb")
+    find_client(conn, "Имя", "Фамилия")
+#     find_client(conn, None, None, None, "8-045-665-32-55")
     
     
 
