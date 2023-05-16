@@ -1,13 +1,6 @@
 import psycopg2
 
-def delete_db(conn):
-    with conn.cursor() as cur:
-        cur.execute("""
-            DROP TABLE phones;
-            DROP TABLE client
-            """)
-    
-    
+
 def create_db(conn):
     with conn.cursor() as cur:
         cur.execute("""
@@ -75,7 +68,7 @@ def change_client(conn, client_id, first_name=None, last_name=None, email=None):
             SET email = %s
             WHERE client_id = %s;
             """, (email, client_id,))
-        if first_name is None:
+        elif first_name is None:
             cur.execute("""
             UPDATE client
             SET last_name = %s, email = %s
@@ -104,46 +97,45 @@ def change_client(conn, client_id, first_name=None, last_name=None, email=None):
 def delete_phone(conn, client_id, phone):
     with conn.cursor() as cur:
         cur.execute("""
-            SELECT client_id FROM client
-            WHERE client_id = %s;
-            """, (client_id,))
+        SELECT client_id FROM client
+        WHERE client_id = %s;
+        """, (client_id,))
         if cur.fetchone() is None:
             print("the keys are not found")
         cur.execute("""
-            SELECT phone FROM phones
-            WHERE phone = %s;
-            """, (phone,))
+        SELECT phone FROM phones
+        WHERE phone = %s;
+        """, (phone,))
         if cur.fetchone() is None:
             print("the phone was not found")
         else:
             cur.execute("""
-                DELETE FROM phones
-                WHERE phone = %s;
-                """, (phone,))
-        
-        
-
+            DELETE FROM phones
+            WHERE phone = %s;
+            """, (phone,))
+            
+            
 def delete_client(conn, client_id):
     with conn.cursor() as cur:
         cur.execute("""
-            SELECT client_id FROM client
-            WHERE client_id = %s;
-            """, (client_id,))
+        SELECT client_id FROM client
+        WHERE client_id = %s;
+        """, (client_id,))
         if cur.fetchone() is None:
             print("the keys are not found")
         else:
             cur.execute("""
-                DELETE FROM phones
-                WHERE link_client = %s;
-                """, (client_id,))
+            DELETE FROM phones
+            WHERE link_client = %s;
+            """, (client_id,))
             cur.execute("""
-                DELETE FROM client
-                WHERE client_id = %s;
-                """, (client_id,))
+            DELETE FROM client
+            WHERE client_id = %s;
+            """, (client_id,))
         
         
 def find_client(conn, first_name=None, last_name=None, email=None, phone=None):
-    with conn.cursor() as cur: 
+    with conn.cursor() as cur:
         if last_name is None and email is None and phone is None:
             cur.execute("""
             SELECT last_name, email FROM client
@@ -151,7 +143,7 @@ def find_client(conn, first_name=None, last_name=None, email=None, phone=None):
             """, (first_name,))
             print(cur.fetchall())
             cur.execute("""
-            SELECT phone FROM client c
+            SELECT last_name, email, phone FROM client c
             JOIN phones p ON c.client_id = p.link_client
             WHERE first_name = %s;
             """, (first_name,))
@@ -272,26 +264,22 @@ def find_client(conn, first_name=None, last_name=None, email=None, phone=None):
             WHERE first_name = %s AND last_name = %s AND phone = %s;
             """, (first_name, last_name, phone,))
             print(cur.fetchall())
-
-
-
-
-        
+        else:
+            cur.execute("""
+            SELECT first_name, last_name, email FROM client
+            WHERE first_name = %s AND last_name = %s AND email = %s;
+            """, (first_name, last_name, email,))
+            print(cur.fetchall())
+            cur.execute("""
+            SELECT phone FROM client c
+            JOIN phones p ON c.client_id = p.link_client
+            WHERE first_name = %s AND last_name = %s AND email = %s AND phone = %s;;
+            """, (first_name, last_name, email, phone,))
+            print(cur.fetchall())
+    
         
 with psycopg2.connect(database="clients_db", user="postgres", password="1112") as conn:
-    delete_db(conn)
-    create_db(conn)
-    add_client(conn, "Roma", "Zaverskiy", "Zaverskiy333@gmail.com", "8-995-595-87-44")
-    add_client(conn, "Вася", "Пупкин", "Pupkin@gmail.com")
-    add_client(conn, "Иван", "Иванов", "Ivanov@gmail.com")
-    add_phone(conn, 1, "8-950-019-55-87")
-    add_phone(conn, 2, "Телефон1")
-    add_phone(conn, 2, "Телефон2")
-    change_client(conn, 2, "Имя", "Фамилия", "Почта")
-    delete_phone(conn, 1, "8-995-595-87-44")
-    delete_phone(conn, 1, "8-950-019-55-87") 
-    delete_client(conn, 3) 
-    find_client(conn, "Имя", "Фамилия", None, "Телефон1")
+    pass
 
     
     
