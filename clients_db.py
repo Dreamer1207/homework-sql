@@ -17,7 +17,6 @@ def create_db(conn):
         last_name VARCHAR(40) NOT NULL,
         email VARCHAR(80) UNIQUE NOT NULL);
         """)
-        
         cur.execute("""
         CREATE TABLE IF NOT EXISTS phones(
         phone_id SERIAL PRIMARY KEY,
@@ -144,7 +143,7 @@ def delete_client(conn, client_id):
         
         
 def find_client(conn, first_name=None, last_name=None, email=None, phone=None):
-    with conn.cursor() as cur:
+    with conn.cursor() as cur: 
         if last_name is None and email is None and phone is None:
             cur.execute("""
             SELECT last_name, email FROM client
@@ -188,6 +187,30 @@ def find_client(conn, first_name=None, last_name=None, email=None, phone=None):
             WHERE phone = %s;
             """, (phone,))
             print(cur.fetchall())
+        elif first_name is None and phone is None:
+            cur.execute("""
+            SELECT first_name FROM client
+            WHERE last_name = %s AND email = %s;
+            """, (last_name, email,))
+            print(cur.fetchall())
+            cur.execute("""
+            SELECT phone FROM client c
+            JOIN phones p ON c.client_id = p.link_client
+            WHERE last_name = %s AND email = %s;
+            """, (last_name, email,))
+            print(cur.fetchall())
+        elif last_name is None and phone is None:
+            cur.execute("""
+            SELECT last_name FROM client
+            WHERE first_name = %s AND email = %s;
+            """, (first_name, email,))
+            print(cur.fetchall())
+            cur.execute("""
+            SELECT phone FROM client c
+            JOIN phones p ON c.client_id = p.link_client
+            WHERE first_name = %s AND email = %s;
+            """, (first_name, email,))
+            print(cur.fetchall())
         elif email is None and phone is None:
             cur.execute("""
             SELECT email FROM client
@@ -198,11 +221,33 @@ def find_client(conn, first_name=None, last_name=None, email=None, phone=None):
             SELECT phone FROM client c
             JOIN phones p ON c.client_id = p.link_client
             WHERE first_name = %s AND last_name = %s;
-            """, (first_name, last_name,))
-            print(*(cur.fetchall()))
-#             
-#     
-#          
+            """, (first_name, last_name))
+            print(cur.fetchall())
+        elif last_name is None and email is None:
+            cur.execute("""
+            SELECT last_name, email FROM client c
+            JOIN phones p ON c.client_id = p.link_client
+            WHERE first_name = %s AND phone = %s;
+            """, (first_name, phone))
+            print(cur.fetchall())
+        elif first_name is None and email is None:
+            cur.execute("""
+            SELECT first_name, email FROM client c
+            JOIN phones p ON c.client_id = p.link_client
+            WHERE last_name = %s AND phone = %s;
+            """, (last_name, phone))
+            print(cur.fetchall())
+        elif first_name is None and last_name is None:
+            cur.execute("""
+            SELECT first_name, last_name FROM client c
+            JOIN phones p ON c.client_id = p.link_client
+            WHERE email = %s AND phone = %s;
+            """, (email, phone))
+            print(cur.fetchall())
+
+
+
+
         
         
 with psycopg2.connect(database="clients_db", user="postgres", password="1112") as conn:
@@ -213,13 +258,13 @@ with psycopg2.connect(database="clients_db", user="postgres", password="1112") a
     add_client(conn, "Иван", "Иванов", "Ivanov@gmail.com")
     add_phone(conn, 1, "8-950-019-55-87")
     add_phone(conn, 2, "8-099-444-87-23")
-    add_phone(conn, 2, "8-045-665-32-55")
+    add_phone(conn, 2, "Телефон")
     change_client(conn, 2, "Имя", "Фамилия", "Почта")
     delete_phone(conn, 1, "8-995-595-87-44")
     delete_phone(conn, 1, "8-950-019-55-87") 
     delete_client(conn, 3) 
 #     find_client(conn, None, None, "bb")
-    find_client(conn, "Имя", "Фамилия")
+    find_client(conn, None, None, "Почта", "Телефон")
 #     find_client(conn, None, None, None, "8-045-665-32-55")
     
     
