@@ -13,7 +13,7 @@ def create_db(conn):
         cur.execute("""
         CREATE TABLE IF NOT EXISTS phones(
         phone_id SERIAL PRIMARY KEY,
-        link_client INTEGER NOT NULL REFERENCES client(client_id),
+        link_client INTEGER NOT NULL REFERENCES client(client_id) ON DELETE CASCADE,
         phone TEXT UNIQUE);
         """)
         
@@ -40,7 +40,7 @@ def add_phone(conn, client_id, phone):
         WHERE client_id = %s;
         """, (client_id,))
         if cur.fetchone() is None:
-            print("the keys are not found")
+            print("keys not found")
         else:
             cur.execute("""
             INSERT INTO phones(link_client, phone)
@@ -49,237 +49,91 @@ def add_phone(conn, client_id, phone):
            
         
 def change_client(conn, client_id, first_name=None, last_name=None, email=None):
-    with conn.cursor() as cur:
-        if last_name is None and email is None:
-            cur.execute("""
-            UPDATE client
-            SET first_name = %s
+    with conn.cursor() as curs:
+        curs.execute(
+            """
+            SELECT first_name, last_name, email, client_id FROM client
             WHERE client_id = %s;
-            """, (first_name, client_id,))
-        elif first_name is None and email is None:
-            cur.execute("""
+            """,
+            (client_id,)
+        )
+        qst = curs.fetchone() 
+        if not qst: 
+            return "client not found" 
+        if first_name is None: 
+            first_name = qst[0] 
+        if last_name is None: 
+            last_name = qst[1] 
+        if email is None: 
+            email = qst[2] 
+        curs.execute(
+            """
             UPDATE client
-            SET last_name = %s
-            WHERE client_id = %s;
-            """, (last_name, client_id,))
-        elif first_name is None and last_name is None:
-            cur.execute("""
-            UPDATE client
-            SET email = %s
-            WHERE client_id = %s;
-            """, (email, client_id,))
-        elif first_name is None:
-            cur.execute("""
-            UPDATE client
-            SET last_name = %s, email = %s
-            WHERE client_id = %s;
-            """, (last_name, email, client_id,))
-        elif last_name is None:
-            cur.execute("""
-            UPDATE client
-            SET first_name = %s, email = %s
-            WHERE client_id = %s;
-            """, (first_name, email, client_id,))
-        elif email is None:
-            cur.execute("""
-            UPDATE client
-            SET first_name = %s, last_name = %s
-            WHERE client_id = %s;
-            """, (first_name, last_name, client_id,))
-        else:
-            cur.execute("""
-            UPDATE client
-            SET first_name=%s, last_name = %s, email = %s
-            WHERE client_id = %s;
-            """, (first_name, last_name, email, client_id,))
+            SET first_name = %s, last_name = %s, email = %s 
+            WHERE client_id = %s; 
+            """,
+            (first_name, last_name, email, client_id,) 
+        )
+    print ("successful change")
             
 
 def delete_phone(conn, client_id, phone):
     with conn.cursor() as cur:
         cur.execute("""
-        SELECT client_id FROM client
-        WHERE client_id = %s;
-        """, (client_id,))
-        if cur.fetchone() is None:
-            print("the keys are not found")
-        cur.execute("""
-        SELECT phone FROM phones
-        WHERE phone = %s;
-        """, (phone,))
-        if cur.fetchone() is None:
-            print("the phone was not found")
-        else:
-            cur.execute("""
-            DELETE FROM phones
-            WHERE phone = %s;
-            """, (phone,))
+        DELETE FROM phones
+        WHERE link_client = %s AND phone = %s;
+        """, (client_id, phone,))
+        if not cur.fetchone:
+            print("phone not found")
+    print("removal made")
             
             
 def delete_client(conn, client_id):
     with conn.cursor() as cur:
         cur.execute("""
-        SELECT client_id FROM client
-        WHERE client_id = %s;
+        DELETE FROM client
+        WHERE client_id = %s
+        RETURNING *;
         """, (client_id,))
-        if cur.fetchone() is None:
-            print("the keys are not found")
-        else:
-            cur.execute("""
-            DELETE FROM phones
-            WHERE link_client = %s;
-            """, (client_id,))
-            cur.execute("""
-            DELETE FROM client
-            WHERE client_id = %s;
-            """, (client_id,))
+        if not cur.fetchall:
+            print("client not found")
+    print("removal made")
+                
         
-        
-def find_client(conn, first_name=None, last_name=None, email=None, phone=None):
+def find_client(conn, first_name='%', last_name='%', email='%', phone='%'):
     with conn.cursor() as cur:
-        if last_name is None and email is None and phone is None:
-            cur.execute("""
-            SELECT last_name, email FROM client
-            WHERE first_name = %s;
-            """, (first_name,))
-            print(cur.fetchall())
-            cur.execute("""
-            SELECT last_name, email, phone FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE first_name = %s;
-            """, (first_name,))
-            print(cur.fetchall())
-        elif first_name is None and email is None and phone is None:
-            cur.execute("""
-            SELECT first_name, email FROM client
-            WHERE last_name = %s;
-            """, (last_name,))
-            print(cur.fetchall())
-            cur.execute("""
-            SELECT phone FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE last_name = %s;
-            """, (last_name,))
-            print(cur.fetchall())
-        elif first_name is None and last_name is None and phone is None:
-            cur.execute("""
-            SELECT first_name, last_name FROM client
-            WHERE email = %s;
-            """, (email,))
-            print(cur.fetchall())
-            cur.execute("""
-            SELECT phone FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE email = %s;
-            """, (email,))
-            print(cur.fetchall())
-        elif first_name is None and last_name is None and email is None:
-            cur.execute("""
-            SELECT first_name, last_name, email FROM phones p
-            JOIN client c ON p.link_client = c.client_id
-            WHERE phone = %s;
-            """, (phone,))
-            print(cur.fetchall())
-        elif first_name is None and phone is None:
-            cur.execute("""
-            SELECT first_name FROM client
-            WHERE last_name = %s AND email = %s;
-            """, (last_name, email,))
-            print(cur.fetchall())
-            cur.execute("""
-            SELECT phone FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE last_name = %s AND email = %s;
-            """, (last_name, email,))
-            print(cur.fetchall())
-        elif last_name is None and phone is None:
-            cur.execute("""
-            SELECT last_name FROM client
-            WHERE first_name = %s AND email = %s;
-            """, (first_name, email,))
-            print(cur.fetchall())
-            cur.execute("""
-            SELECT phone FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE first_name = %s AND email = %s;
-            """, (first_name, email,))
-            print(cur.fetchall())
-        elif email is None and phone is None:
-            cur.execute("""
-            SELECT email FROM client
-            WHERE first_name = %s AND last_name = %s;
-            """, (first_name, last_name,))
-            print(cur.fetchall())
-            cur.execute("""
-            SELECT phone FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE first_name = %s AND last_name = %s;
-            """, (first_name, last_name))
-            print(cur.fetchall())
-        elif last_name is None and email is None:
-            cur.execute("""
-            SELECT last_name, email FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE first_name = %s AND phone = %s;
-            """, (first_name, phone))
-            print(cur.fetchall())
-        elif first_name is None and email is None:
-            cur.execute("""
-            SELECT first_name, email FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE last_name = %s AND phone = %s;
-            """, (last_name, phone))
-            print(cur.fetchall())
-        elif first_name is None and last_name is None:
-            cur.execute("""
-            SELECT first_name, last_name FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE email = %s AND phone = %s;
-            """, (email, phone))
-            print(cur.fetchall())
-        elif phone is None:
-            cur.execute("""
-            SELECT phone FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE first_name = %s AND last_name = %s AND email = %s;
-            """, (first_name, last_name, email,))
-            print(cur.fetchall())
-        elif first_name is None:
-            cur.execute("""
-            SELECT first_name FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE last_name = %s AND email = %s AND phone = %s;
-            """, (last_name, email, phone,))
-            print(cur.fetchall())
-        elif last_name is None:
-            cur.execute("""
-            SELECT last_name FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE first_name = %s AND email = %s AND phone = %s;
-            """, (first_name, email, phone,))
-            print(cur.fetchall())
-        elif email is None:
-            cur.execute("""
-            SELECT email FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE first_name = %s AND last_name = %s AND phone = %s;
-            """, (first_name, last_name, phone,))
-            print(cur.fetchall())
-        else:
-            cur.execute("""
-            SELECT first_name, last_name, email FROM client
-            WHERE first_name = %s AND last_name = %s AND email = %s;
-            """, (first_name, last_name, email,))
-            print(cur.fetchall())
-            cur.execute("""
-            SELECT phone FROM client c
-            JOIN phones p ON c.client_id = p.link_client
-            WHERE first_name = %s AND last_name = %s AND email = %s AND phone = %s;;
-            """, (first_name, last_name, email, phone,))
-            print(cur.fetchall())
-    
+        qst = f"""
+            SELECT email, first_name, last_name,
+            CASE
+                WHEN ARRAY_AGG(phone) = '{{Null}}' THEN '{{}}'
+                ELSE ARRAY_AGG(phone)
+            END phones
+            FROM client c
+            LEFT JOIN phones p ON c.client_id = p.link_client
+            WHERE first_name ILIKE %s AND last_name ILIKE %s AND email ILIKE %s AND phone ILIKE %s
+            GROUP BY email, first_name, last_name
+            """
+        cur.execute(qst, (first_name, last_name, email, phone))
+        print(cur.fetchall())
+
         
-with psycopg2.connect(database="clients_db", user="postgres", password="1112") as conn:
-    pass
+with psycopg2.connect(database="clients_db", user="postgres", password="postgres") as conn:
+    create_db(conn)
+    add_client(conn, "Иван", "Иванов", "Ivanov@mail.ru", "8-111-111-11-11")
+    add_client(conn, "Вася", "Петров", "Petrov@mail.ru")
+    add_client(conn, "Петя", "Сидоров", "Sidorov@mail.ru")
+    add_client(conn, "Егор", "Летов", "Letov@mail.ru")
+    add_phone(conn, 1, "8-222-22-22-22")
+    add_phone(conn, 2, "8-333-33-33-33")
+    change_client(conn, 2, None, "Пушкин", "Pushkin@mail.ru")
+    delete_phone(conn, 2, "8-222-22-22-22")
+    delete_client(conn, 3)
+    find_client(conn, "%", "%", "%", "8-111-111-11-11")
+    find_client(conn, "%", "Пушкин")
+    find_client(conn, "%", "Летов")
+
+    
+    
 
     
     
